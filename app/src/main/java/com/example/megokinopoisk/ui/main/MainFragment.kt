@@ -13,10 +13,8 @@ import com.example.megokinopoisk.databinding.MainFragmentBinding
 
 class MainFragment : Fragment() {
 
-
     private var _binding: MainFragmentBinding? = null
-
-
+    
     private val binding get() = _binding!!
 
     companion object {
