@@ -16,7 +16,7 @@ class MainFragment : Fragment() {
 
     private var _binding: MainFragmentBinding? = null
 
-    //Обратите внимание, что эта переменная существует только между методами onCreateView и onDestroyView. Можете объяснить почему?
+
     private val binding get() = _binding!!
 
     companion object {
