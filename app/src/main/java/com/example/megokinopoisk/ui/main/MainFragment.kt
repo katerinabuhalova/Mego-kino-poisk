@@ -10,11 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.megokinopoisk.R
 import com.example.megokinopoisk.databinding.MainFragmentBinding
+import layout.PagerAdapter
 
 class MainFragment : Fragment() {
 
     private var _binding: MainFragmentBinding? = null
-    
+
     private val binding get() = _binding!!
 
     companion object {
@@ -48,8 +49,9 @@ class MainFragment : Fragment() {
 
         var tabLayout = binding.tabLayout
         var viewPager = binding.pager
-        tabLayout.setupWithViewPager(viewPager)
-
+        //tabLayout.setupWithViewPager(viewPager)
+        val words = arrayListOf("One", "Two", "Three", "Four", "Five")
+        viewPager.adapter = PagerAdapter(currentActivity, words)
         return view
     }
 
