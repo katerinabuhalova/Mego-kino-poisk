@@ -52,6 +52,7 @@ class MainFragment : Fragment() {
         //tabLayout.setupWithViewPager(viewPager)
         val words = arrayListOf("One", "Two", "Three", "Four", "Five")
         viewPager.adapter = PagerAdapter(currentActivity, words)
+
         return view
     }
 
