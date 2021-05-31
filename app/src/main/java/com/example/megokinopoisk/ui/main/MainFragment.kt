@@ -63,7 +63,6 @@ class MainFragment : Fragment() {
         return view
     }
 
-
     private fun returnName(position: Int): String {
         var names: Array<String> = arrayOf(getString(R.string.films), getString(R.string.animations), getString(R.string.tv_series))
         return names[position]
