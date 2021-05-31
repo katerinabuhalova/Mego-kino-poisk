@@ -10,7 +10,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.megokinopoisk.R
 import com.example.megokinopoisk.databinding.MainFragmentBinding
+import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.android.synthetic.main.main_fragment.*
 import layout.PagerAdapter
+import java.text.FieldPosition
 
 class MainFragment : Fragment() {
 
@@ -25,8 +28,8 @@ class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
         val view = binding.root
@@ -37,11 +40,11 @@ class MainFragment : Fragment() {
 
         var drawer = binding.drawerLayout
         var toggle = ActionBarDrawerToggle(
-            currentActivity,
-            drawer,
-            toolbar,
-            R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close
+                currentActivity,
+                drawer,
+                toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close
         )
         drawer.addDrawerListener(toggle)
         toggle.isDrawerIndicatorEnabled = true
@@ -50,10 +53,20 @@ class MainFragment : Fragment() {
         var tabLayout = binding.tabLayout
         var viewPager = binding.pager
         //tabLayout.setupWithViewPager(viewPager)
-        val words = arrayListOf("One", "Two", "Three", "Four", "Five")
+        val words = arrayListOf("Films", "Animations", "TV Series")
         viewPager.adapter = PagerAdapter(currentActivity, words)
 
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = returnName(position)
+        }.attach()
+
         return view
+    }
+
+
+    private fun returnName(position: Int): String {
+        var names: Array<String> = arrayOf(getString(R.string.films), getString(R.string.animations), getString(R.string.tv_series))
+        return names[position]
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

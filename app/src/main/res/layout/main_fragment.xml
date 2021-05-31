@@ -42,18 +42,15 @@
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/films" />
+                    android:layout_height="wrap_content"/>
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mult" />
+                    android:layout_height="wrap_content" />
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/serial" />
+                    android:layout_height="wrap_content" />
 
             </com.google.android.material.tabs.TabLayout>
 
