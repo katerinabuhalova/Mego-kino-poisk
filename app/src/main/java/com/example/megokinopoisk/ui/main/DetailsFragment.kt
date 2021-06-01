@@ -18,7 +18,6 @@ class DetailsFragment : Fragment() {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
         return binding.getRoot()
     }
-
     companion object {
 
         const val BUNDLE_EXTRA = ""

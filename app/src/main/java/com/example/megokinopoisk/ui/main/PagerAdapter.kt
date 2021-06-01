@@ -29,7 +29,7 @@ class PagerAdapter(private val context: Context, private val words: List<String>
         itemDecoration.setDrawable(context.resources.getDrawable(R.drawable.separator))
         holder.recyclerView.addItemDecoration(itemDecoration)
 
-        var adapter = FilmsCollectionAdapter()
+        var adapter = FilmsCollectionAdapter(context)
         holder.recyclerView.adapter = adapter
         //adapter.SetOnItemClickListener { view, position -> openDetails(data, position) }
     }
@@ -40,12 +40,5 @@ class PagerAdapter(private val context: Context, private val words: List<String>
         var recyclerView: RecyclerView = view.findViewById(R.id.recycler_view_lines)
     }
 
-    private fun openDetailsFragment() {
-        val manager = (context as AppCompatActivity?)!!.supportFragmentManager
-        val bundle = Bundle()
-        manager.beginTransaction()
-                .replace(R.id.container, DetailsFragment.newInstance(bundle))
-                .addToBackStack("")
-                .commitAllowingStateLoss()
-    }
+
 }

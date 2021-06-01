@@ -1,14 +1,17 @@
 package com.example.megokinopoisk.ui.main
 
+import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.megokinopoisk.R
 
-class FilmsCollectionAdapter() : RecyclerView.Adapter<FilmsCollectionAdapter.ViewHolder?>() {
+class FilmsCollectionAdapter(private val context: Context) : RecyclerView.Adapter<FilmsCollectionAdapter.ViewHolder?>() {
     private var dataSource: Array<String> = arrayOf("Film1", "Film2", "Film3")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -19,6 +22,21 @@ class FilmsCollectionAdapter() : RecyclerView.Adapter<FilmsCollectionAdapter.Vie
 
     override fun onBindViewHolder(holder: FilmsCollectionAdapter.ViewHolder, position: Int) {
         holder.name.text = dataSource[position]
+        holder.itemView.setOnClickListener { onItemClicked(dataSource[position]) }
+    }
+
+    private fun openDetailsFragment(item: String) {
+        val manager = (context as AppCompatActivity?)!!.supportFragmentManager
+        val bundle = Bundle()
+        bundle.putString("title",item)
+        manager.beginTransaction()
+                .replace(R.id.container, DetailsFragment.newInstance(bundle))
+                .addToBackStack("")
+                .commitAllowingStateLoss()
+    }
+
+    private fun onItemClicked(item: String) {
+        openDetailsFragment(item)
     }
 
     override fun getItemCount(): Int {
