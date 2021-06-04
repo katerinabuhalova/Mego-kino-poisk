@@ -12,17 +12,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.megokinopoisk.R
 
 class FilmsCollectionAdapter(private val context: Context) : RecyclerView.Adapter<FilmsCollectionAdapter.ViewHolder?>() {
-    private var dataSource: Array<String> = arrayOf("Film1", "Film2", "Film3")
+    private var dataSource = arrayOf("Film1", "Film2", "Film3")
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v: View = LayoutInflater.from(parent.context)
+        val v = LayoutInflater.from(parent.context)
                 .inflate(R.layout.mego_kino_poisk_item_list_view, parent, false)
         return ViewHolder(v)
     }
 
     override fun onBindViewHolder(holder: FilmsCollectionAdapter.ViewHolder, position: Int) {
-        holder.name.text = dataSource[position]
-        holder.itemView.setOnClickListener { onItemClicked(dataSource[position]) }
+        holder.apply {
+            name.text = dataSource[position]
+            itemView.setOnClickListener {
+                onItemClicked(dataSource[position])
+            }
+        }
     }
 
     private fun openDetailsFragment(item: String) {
@@ -39,9 +43,7 @@ class FilmsCollectionAdapter(private val context: Context) : RecyclerView.Adapte
         openDetailsFragment(item)
     }
 
-    override fun getItemCount(): Int {
-        return dataSource.size
-    }
+    override fun getItemCount() = dataSource.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.name)

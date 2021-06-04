@@ -13,21 +13,24 @@ class DetailsFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
-        var tittleView: TextView = binding.tittleView
-        tittleView.text = arguments?.getString("title")
+        binding.tittleView.apply {
+            text = arguments?.getString("title")
+        }
         return binding.root
     }
+
     companion object {
 
         const val BUNDLE_EXTRA = ""
 
         fun newInstance(bundle: Bundle): DetailsFragment {
-            val fragment = DetailsFragment()
-            fragment.arguments = bundle
+            val fragment = DetailsFragment().apply {
+                arguments = bundle
+            }
             return fragment
         }
     }

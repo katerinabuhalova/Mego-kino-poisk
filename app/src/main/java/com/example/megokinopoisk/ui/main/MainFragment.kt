@@ -35,8 +35,9 @@ class MainFragment : Fragment() {
         val view = binding.root
 
         val toolbar = binding.toolbar
-        var currentActivity = (activity as AppCompatActivity?)!!
-        currentActivity.setSupportActionBar(toolbar)
+        var currentActivity = (activity as AppCompatActivity?)!!.apply {
+            setSupportActionBar(toolbar)
+        }
 
         var drawer = binding.drawerLayout
         var toggle = ActionBarDrawerToggle(
@@ -52,19 +53,15 @@ class MainFragment : Fragment() {
 
         var tabLayout = binding.tabLayout
         var viewPager = binding.pager
-        //tabLayout.setupWithViewPager(viewPager)
         val words = arrayListOf("Films", "Animations", "TV Series")
         viewPager.adapter = PagerAdapter(currentActivity, words)
 
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = returnName(position)
-        }.attach()
-
+        TabLayoutMediator(tabLayout, viewPager) { tab, position -> tab.text = returnName(position) }.attach()
         return view
     }
 
     private fun returnName(position: Int): String {
-        var names: Array<String> = arrayOf(getString(R.string.films), getString(R.string.animations), getString(R.string.tv_series))
+        var names = arrayOf(getString(R.string.films), this.getString(R.string.animations), this.getString(R.string.tv_series))
         return names[position]
     }
 
