@@ -24,18 +24,6 @@ class MainFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    private val onLoadListener: DataSource.FilmLoaderListener =
-            object : DataSource.FilmLoaderListener {
-
-                override fun onLoaded(weatherDTO: FilmDetailsDTO) {
-                    //displayFilm(weatherDTO)
-                }
-
-                override fun onFailed(throwable: Throwable) {
-                    //Обработка ошибки
-                }
-            }
-
     companion object {
         fun newInstance() = MainFragment()
     }
@@ -49,9 +37,6 @@ class MainFragment : Fragment() {
     ): View {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
 
-//        var dataSource = DataSource().also {
-//            it.loadData()
-//        }
         val view = binding.root
 
         val toolbar = binding.toolbar
@@ -88,29 +73,10 @@ class MainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-
-//    private fun displayFilm(filmDetailsDTO: FilmDetailsDTO) {
-//        with(binding) {
-//            mainView.visibility = View.VISIBLE
-//            loadingLayout.visibility = View.GONE
-//            val city = weatherBundle.city
-//            cityName.text = city.city
-//            cityCoordinates.text = String.format(
-//                    getString(R.string.city_coordinates),
-//                    city.lat.toString(),
-//                    city.lon.toString()
-//            )
-//            weatherCondition.text = weatherDTO.fact?.condition
-//            temperatureValue.text = weatherDTO.fact?.temp.toString()
-//            feelsLikeValue.text = weatherDTO.fact?.feels_like.toString()
-//        }
-//    }
 }

@@ -18,10 +18,6 @@ class DataSource(private val listener: FilmLoaderListener) {
 
     private  val collection : MutableList<FilmDetailsDTO>? = mutableListOf()
 
-
-
-
-
     interface FilmLoaderListener {
         fun onLoaded(filmDetailsDTO: FilmDetailsDTO)
         fun onFailed(throwable: Throwable)
@@ -38,14 +34,8 @@ class DataSource(private val listener: FilmLoaderListener) {
                 try {
                     urlConnection = uri.openConnection() as HttpsURLConnection
                     urlConnection.requestMethod = "GET"
-//                    urlConnection.addRequestProperty(
-//                            "X-Yandex-API-Key",
-//                            YOUR_API_KEY
-//                    )
                     urlConnection.readTimeout = 10000
                     val bufferedReader = BufferedReader(InputStreamReader(urlConnection.inputStream))
-
-                    // преобразование ответа от сервера (JSON) в модель данных (WeatherDTO)
                     val filmDetailsDTO: FilmDetailsDTO = Gson().fromJson(getLines(bufferedReader), FilmDetailsDTO::class.java)
                     handler.post {
                         listener.onLoaded(filmDetailsDTO)

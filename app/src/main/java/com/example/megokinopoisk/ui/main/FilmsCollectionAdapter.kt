@@ -1,23 +1,30 @@
 package com.example.megokinopoisk.ui.main
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.megokinopoisk.R
+import com.example.megokinopoisk.data.DataSource
 import com.example.megokinopoisk.data.FilmDetailsDTO
 
 class FilmsCollectionAdapter(private val context: Context) : RecyclerView.Adapter<FilmsCollectionAdapter.ViewHolder?>() {
-    private var dataSource =  arrayOf(
-            FilmDetailsDTO("Film1", "description"),
-            FilmDetailsDTO("Film2", "description2"),
-    )
+    private var filmsCollection: ArrayList<FilmDetailsDTO> = ArrayList()
 
+    @RequiresApi(Build.VERSION_CODES.N)
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+        var dataSource = DataSource(onLoadListener).also {
+           it.loadData()
+        }
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context)
                 .inflate(R.layout.mego_kino_poisk_item_list_view, parent, false)
@@ -26,10 +33,10 @@ class FilmsCollectionAdapter(private val context: Context) : RecyclerView.Adapte
 
     override fun onBindViewHolder(holder: FilmsCollectionAdapter.ViewHolder, position: Int) {
         holder.apply {
-            name.text = dataSource[position].name
-            description.text = dataSource[position].description
+            name.text = filmsCollection[position].name
+            description.text = filmsCollection[position].description
             itemView.setOnClickListener {
-                onItemClicked(dataSource[position])
+                onItemClicked(filmsCollection[position])
             }
         }
     }
@@ -48,7 +55,7 @@ class FilmsCollectionAdapter(private val context: Context) : RecyclerView.Adapte
         openDetailsFragment(item)
     }
 
-    override fun getItemCount() = dataSource.size
+    override fun getItemCount() = filmsCollection.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.name)
@@ -60,4 +67,16 @@ class FilmsCollectionAdapter(private val context: Context) : RecyclerView.Adapte
     companion object {
         private const val TAG = "SocialNetworkAdapter"
     }
+
+    private val onLoadListener: DataSource.FilmLoaderListener =
+            object : DataSource.FilmLoaderListener {
+
+                override fun onLoaded(filmDetailsDTO: FilmDetailsDTO) {
+                    filmsCollection.add(filmDetailsDTO)
+                    notifyDataSetChanged()
+                }
+
+                override fun onFailed(throwable: Throwable) {
+                }
+            }
 }
