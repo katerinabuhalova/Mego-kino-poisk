@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.megokinopoisk.R
+import com.example.megokinopoisk.data.FilmDetailsDTO
 import com.example.megokinopoisk.ui.main.DetailsFragment
 import com.example.megokinopoisk.ui.main.FilmsCollectionAdapter
 import java.io.File.separator

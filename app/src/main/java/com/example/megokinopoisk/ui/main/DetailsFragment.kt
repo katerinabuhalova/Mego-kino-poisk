@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.example.megokinopoisk.data.FilmDetailsDTO
 import com.example.megokinopoisk.databinding.FragmentDetailsBinding
 
 class DetailsFragment : Fragment() {
@@ -17,8 +18,12 @@ class DetailsFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
+        val film = arguments?.getSerializable("film")as FilmDetailsDTO
+        binding.description.apply {
+            text = film.description
+        }
         binding.tittleView.apply {
-            text = arguments?.getString("title")
+            text = film.name
         }
         return binding.root
     }

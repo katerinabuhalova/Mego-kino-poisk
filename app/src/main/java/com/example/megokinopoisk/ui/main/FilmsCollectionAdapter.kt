@@ -10,9 +10,13 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.megokinopoisk.R
+import com.example.megokinopoisk.data.FilmDetailsDTO
 
 class FilmsCollectionAdapter(private val context: Context) : RecyclerView.Adapter<FilmsCollectionAdapter.ViewHolder?>() {
-    private var dataSource = arrayOf("Film1", "Film2", "Film3")
+    private var dataSource =  arrayOf(
+            FilmDetailsDTO("Film1", "description"),
+            FilmDetailsDTO("Film2", "description2"),
+    )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context)
@@ -22,24 +26,25 @@ class FilmsCollectionAdapter(private val context: Context) : RecyclerView.Adapte
 
     override fun onBindViewHolder(holder: FilmsCollectionAdapter.ViewHolder, position: Int) {
         holder.apply {
-            name.text = dataSource[position]
+            name.text = dataSource[position].name
+            description.text = dataSource[position].description
             itemView.setOnClickListener {
                 onItemClicked(dataSource[position])
             }
         }
     }
 
-    private fun openDetailsFragment(item: String) {
+    private fun openDetailsFragment(item: FilmDetailsDTO) {
         val manager = (context as AppCompatActivity?)!!.supportFragmentManager
         val bundle = Bundle()
-        bundle.putString("title",item)
+        bundle.putSerializable("film", item)
         manager.beginTransaction()
                 .replace(R.id.container, DetailsFragment.newInstance(bundle))
                 .addToBackStack("")
                 .commitAllowingStateLoss()
     }
 
-    private fun onItemClicked(item: String) {
+    private fun onItemClicked(item: FilmDetailsDTO) {
         openDetailsFragment(item)
     }
 
