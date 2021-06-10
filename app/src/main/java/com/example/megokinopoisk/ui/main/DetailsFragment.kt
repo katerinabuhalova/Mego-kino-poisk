@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.megokinopoisk.databinding.FragmentDetailsBinding
 
@@ -12,19 +13,24 @@ class DetailsFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
-        return binding.getRoot()
+        binding.tittleView.apply {
+            text = arguments?.getString("title")
+        }
+        return binding.root
     }
+
     companion object {
 
         const val BUNDLE_EXTRA = ""
 
         fun newInstance(bundle: Bundle): DetailsFragment {
-            val fragment = DetailsFragment()
-            fragment.arguments = bundle
+            val fragment = DetailsFragment().apply {
+                arguments = bundle
+            }
             return fragment
         }
     }
